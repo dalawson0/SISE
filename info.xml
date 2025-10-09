@@ -1,0 +1,25 @@
+<productinfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="optional">
+    
+    <!-- info.xml file for SISE toolbox -->
+    <!-- Version 1.0 -->
+    <!-- Copyright 2025 Daniel Lawson -->
+
+    <!-- MATLAB release the toolbox targets -->
+    <matlabrelease>R2025b</matlabrelease>
+    
+    <!-- Toolbox title shown in MATLAB Contents pane -->
+    <name>SISE</name>
+    
+    <!-- Toolbox type -->
+    <type>toolbox</type>
+
+    <!-- Icon file for the start button (left blank or provide small png) --> 
+    <icon></icon>
+
+    <!-- Relative path to HTML help folder -->
+    <help_location>html</help_location>
+
+<!-- Help contents icon (ignored in R2015a or later) -->
+    <help_contents_icon></help_contents_icon>
+</productinfo>

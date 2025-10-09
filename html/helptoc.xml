@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<toc version="2.0">
+<!-- Top level in Help browser Content -->
+    <tocitem target="sise_product_page.html">SISE Toolbox 
+        <!-- Nest tocitems to create hierarchical entries in  Contents-->
+        <!-- To include icons, use the following syntax for tocitems: -->
+        <!-- <tocitem target="foo.html" image="HelpIcon.NAME"> -->
+        <!-- Title-of-Section </tocitem> -->
+        <!-- where NAME is one of the following (use capital letters): -->
+        <!-- FUNCTION, USER_GUIDE, EXAMPLES, BLOCK, GETTING_STARTED, -->
+        <!-- DEMOS, RELEASE_NOTES --> 
+        <!-- Icon images used for these entries are also stored in -->
+        <!-- matlabroot/toolbox/matlab/icons -->
+
+        <!-- Getting Started section -->
+        <tocitem target="sise_getting_started.html" image="HelpIcon.GETTING_STARTED">
+            Getting Started
+            <tocitem target="">System Requirements</tocitem>
+            <tocitem target="">Features</tocitem>
+        </tocitem>
+
+        <!-- Function reference section -->
+        <tocitem target="sise_helpfuncbycat.html" image="HelpIcon.FUNCTION">
+            Function Reference
+            <!-- First category, with link to anchor in above page -->
+            <tocitem target="sise_helpfuncbycat.html#1">Minimal-Delay SISE
+                <!-- functions alphabetically -->
+                <tocitem target="ULISE_algorithm_overview.html">ULISE</tocitem>
+                <!-- ... -->
+            </tocitem>
+        </tocitem>
+
+        <!-- Examples, with hyperlinks to examples in other files -->
+        <tocitem target="sise_examples.html" 
+                 image="HelpIcon.HelpIcon.EXAMPLES">Examples 
+                 <!-- Examples alphabetically -->
+                 <tocitem target="example_ULISE_fault_identification.html">Fault Identification</tocitem>
+        </tocitem>
+
+        <!-- Optional link or links to your or other Web sites -->
+        <tocitem target="http://www.mathworks.com" 
+                 image="$toolbox/matlab/icons/webicon.gif">
+        </tocitem>
+
+    </tocitem>
+</toc>
