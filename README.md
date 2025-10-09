@@ -30,7 +30,7 @@ A `.mltbx` installer will be provided in the GitHub releases. Allowing for a one
 	```bash
 	git clone https://github.com/dalawson0/SISE.git
 	```
-2.Add the SISE folder (and all subfolders) to your MATLAB path:
-	```matlab
+2. Add the SISE folder (and all subfolders) to your MATLAB path:
+	```MATLAB
 	addpath(genpath("path/to/SISE_folder"));
 	```
