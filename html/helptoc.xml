@@ -4,20 +4,10 @@
 <!-- Top level in Help browser Content -->
     <tocitem target="sise_product_page.html">SISE Toolbox 
         <!-- Nest tocitems to create hierarchical entries in  Contents-->
-        <!-- To include icons, use the following syntax for tocitems: -->
-        <!-- <tocitem target="foo.html" image="HelpIcon.NAME"> -->
-        <!-- Title-of-Section </tocitem> -->
-        <!-- where NAME is one of the following (use capital letters): -->
-        <!-- FUNCTION, USER_GUIDE, EXAMPLES, BLOCK, GETTING_STARTED, -->
-        <!-- DEMOS, RELEASE_NOTES --> 
-        <!-- Icon images used for these entries are also stored in -->
-        <!-- matlabroot/toolbox/matlab/icons -->
-
+ 
         <!-- Getting Started section -->
         <tocitem target="sise_getting_started.html" image="HelpIcon.GETTING_STARTED">
             Getting Started
-            <tocitem target="">System Requirements</tocitem>
-            <tocitem target="">Features</tocitem>
         </tocitem>
 
         <!-- Function reference section -->
