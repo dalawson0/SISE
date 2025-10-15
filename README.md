@@ -1,8 +1,6 @@
 # SISE - Simultaneous Input and State Estmation for MATLAB
 
-**Author:** Daniel Lawson
-**Version:** v0.0.0
-**MATLAB Release:** R2025b
+**Author:** Daniel Lawson,
 **License:** MIT
 
 ---
@@ -10,27 +8,37 @@
 ## Overview
 **SISE** is a MATLAB toolbox providing algorithms for **Simultaneous Input and State Estimation (SISE)** in linear systems. The toolbox is designed to support research, simulation, and practical applications in state estimation and controls.
 
-* **Core estimation function:** `ULISE.m` — implements the Unified Linear Input and State Estimator for discrete-time, time-invariant systems with one or zero timestep delay. 
-* **Live demonstration:** `example_ULISE_fault_identification.mlx` — an interactive example showcasing the ULISE algorithm on simulated data. 
-* **Supporting resources:** documentation, example data, and guides to help you get started with the toolbox. 
 
-Future versions will expand the toolbox with additional estimation algorithms and potential Simulink models.
+## Version Information
+- **Current Version:** v0.1.0  
+- **Tested MATLAB Release:** R2025b  
 
-___
 
 ## Installation
 
-The SISE Toolbox can be installed in MATLAB once the `.mltbx` release is available:
+You can install the SISE Toolbox in MATLAB using one of the following methods:
 
-**Future Release (Recommended): Download MATLAB Toolbox File**
-A `.mltbx` installer will be provided in the GitHub releases. Allowing for a one-click installation.
 
-**Current Option: GitHub**
+#### Option 1 - Direct Download
+Download the latest release of SISE here: [Download SISE](https://github.com/dalawson0/SISE/releases/latest/download/SISE_0.1.0.mltbx)  
+*(This option is available starting from the initial release v0.1.0.)*
+
+#### Option 2 - MATLAB Add-On Explorer
+1. Open MATLAB.
+2. Go to *Home > Add-Ons > Explore Add-Ons*.
+3. Search for `SISE` and click *Install*.
+
+
+#### Option 3 - GitHub Clone or Download
 1. Download and extract the ZIP file or clone the repository:
 	```bash
 	git clone https://github.com/dalawson0/SISE.git
 	```
 2. Add the SISE folder (and all subfolders) to your MATLAB path:
-	```MATLAB
-	addpath(genpath("path/to/SISE_folder"));
+	```matlab
+	addpath(genpath("path/to/SISE_folder"))
+	```
+3. To make the SISE Toolbox available every time you start MATLAB, save the current path by running:
+	```matlab
+	savepath
 	```
