@@ -2,8 +2,8 @@
 **/*.asv 
 *.mltbx
 **/.DS_Store
-**/resources/**/*
+resources/
 **/.buildtool/**/*
-**/*.prj
-**/*.prj.bak
-**/.svn/**/*
+*.prj
+*.prj.bak
+toolbox.ignore
