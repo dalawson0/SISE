@@ -1,4 +1,9 @@
 # List of files to untrack and/or ignore
-*.asv 
+**/*.asv 
 *.mltbx
-.DS_Store
+**/.DS_Store
+**/resources/**/*
+**/.buildtool/**/*
+**/*.prj
+**/*.prj.bak
+**/.svn/**/*
