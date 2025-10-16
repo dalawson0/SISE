@@ -8,3 +8,4 @@ resources/
 *.prj.bak
 toolbox.ignore
 release/
+SISE/
