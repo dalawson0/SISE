@@ -9,3 +9,5 @@ resources/
 toolbox.ignore
 release/
 SISE/
+slprj/
+**.slxc
