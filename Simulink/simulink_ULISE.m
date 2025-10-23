@@ -3,6 +3,7 @@
 % Script for Simulink implementation of ULISE
 
 % Define state-space matrices
+
 A = [0.5    2   0   0   0;
      0      0.2 1   0   1; 
      0      0   0.3 0   1; 
@@ -39,11 +40,9 @@ Q = 1e-4* [1    0   0   0   0;
            0    0   0   1   0; 
            0    0   0   0   1]; 
 
-% K = 1000;
-
 x0 = zeros(size(A,1),1);        % Initial true state 
-% xhat0 = zeros(size(A,1),1);     % Initial state estimate 
-% P_x0 = eye(size(A,1))*1e6;      % Initial state error covariance 
+xhat0 = zeros(size(A,1),1);     % Initial state estimate 
+P_x0 = eye(size(A,1))*1e6;      % Initial state error covariance 
 
 K = 1000; % Total time steps
 
