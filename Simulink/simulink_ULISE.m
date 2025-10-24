@@ -28,6 +28,7 @@ H = [0  0   1;
      0  0   0; 
      0  0   0]; 
 
+
 R = 1e-2* [1    0   0   0.5 0;
            0    1   0   0   0.3; 
            0    0   1   0   0; 
@@ -39,6 +40,16 @@ Q = 1e-4* [1    0   0   0   0;
            0    0.5 1   0   0; 
            0    0   0   1   0; 
            0    0   0   0   1]; 
+
+% Singular Value Decomposition of H
+r =     rank(H);
+[U, S, V] = svd(H);
+%
+U1 =       U(:, 1:r);
+U2 =       U(:, r+1:end);
+Sigma =    S(1:r, 1:r);
+V1 =       V(:, 1:r);
+V2 =       V(:, r+1:end);
 
 x0 = zeros(size(A,1),1);        % Initial true state 
 xhat0 = zeros(size(A,1),1);     % Initial state estimate 
