@@ -89,7 +89,6 @@ SimSetup.Ts = 1e0; % Sampling time
 SimSetup.K= 1e3; % Total number of time steps for simulation
 SimSetup.T = SimSetup.Ts * SimSetup.K; % total simulation time
 SimSetup.t  = (0:SimSetup.K-1)' * SimSetup.Ts; % Time vector
-% assignin('base', 'SimSetup', SimSetup); % Assign SimSetup to the base workspace
 
 %% Simulate 'true' known input, u, and unknown input, d. 
 u = zeros(1,SimSetup.K);
@@ -122,7 +121,6 @@ InputData.d=setinterpmethod(timeseries(d, SimSetup.t),'zoh');
 InputData.d.Name = "timeseries unknown input";
 
 % Add process and measurement noise timeseries to struct
-% InputData.w = timeseries(w, SimSetup.t); 
 InputData.w = setinterpmethod(timeseries(w, SimSetup.t),'zoh'); 
 InputData.w.Name = "timeseries process noise";
 
