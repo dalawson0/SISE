@@ -10,6 +10,80 @@
 
 %% Define Plant Parameter
 
+
+A = [ 0.5    2   0   0   0;
+    0      0.2 1   0   1; 
+    0      0   0.3 0   1; 
+    0      0   0   0.7 1;
+    0      0   0   0   0.1 ]; 
+
+B = zeros(size(A,1),1);
+
+C = blkdiag(1,1,1,1,1);
+
+D = zeros(size(C,1),1);
+
+G = [ 1  0   -0.3;
+    1   0   0;
+    0   0   0;
+    0   0   0;
+    0   0   0] ;
+p = size(G, 2);
+
+H = [ 0  0   1;
+    0  0   0; 
+    0  1   0; 
+    0  0   0; 
+    0  0   0 ]; 
+
+x0 = zeros(size(A,1),1);
+
+R = 1e-2 * [  1    0   0   0.5 0;
+            0    1   0   0   0.3; 
+            0    0   1   0   0; 
+            0.5  0   0   1   0; 
+            0    0.3 0   0   1  ];
+
+Q = 1e-4 * [  1    0   0   0   0; 
+            0    1   0.5 0   0; 
+            0    0.5 1   0   0; 
+            0    0   0   1   0; 
+            0    0   0   0   1  ]; 
+
+% Singular Value Decomposition of H
+r = rank(H);
+[U, S, V] = svd(H);
+
+U1 = U(:, 1:r); 
+U2 = U(:, r+1:end);
+
+Sigma = S(1:r, 1:r);
+ 
+V1 = V(:, 1:r);
+V2 = V(:, r+1:end);
+
+xhat0 = zeros(size(A,1),1);
+
+% Ahat = A - G1*M1*C1;
+% Qhat = G1*M1*R1*M1'*G1' + Q;
+
+T1 = U1' - U1'*R*U2*inv(U2'*R*U2)*U2';
+T2 = U2';
+
+% Transmission zeros
+t_zeros = tzero(A,G,C,H);
+if rank([A G; C H]) ~= size(A,1)+size(G,2)
+    error('Error. System is not strongly detectable.')
+end
+
+for i = 1:length(t_zeros)
+    if abs(t_zeros(i)) > 1
+        error('Error. System is not strongly detectable')
+        
+    end
+end
+
+% if rank(C2*G2)??
 PlantParams = struct();
 
 PlantParams.A = Simulink.Parameter;
@@ -131,10 +205,13 @@ v = (randn(SimSetup.K,size(PlantParams.C.Value,1))*SigmaR)';
 
 InputData = struct();
 
-InputData.u = timeseries(u, SimSetup.t');
+InputData.u=setinterpmethod(timeseries(u, SimSetup.t),'zoh');
+% InputData.u = timeseries(u, SimSetup.t', "");
 InputData.u.Name = "timeseries known input";
+% u_stairs = setinterpmethod(, 'zoh');
 
-InputData.d = timeseries(d, SimSetup.t');
+% InputData.d = timeseries(d, SimSetup.t');
+InputData.d=setinterpmethod(timeseries(d, SimSetup.t),'zoh');
 InputData.d.Name = "timeseries unknown input";
 
 % Add Noise timeseries to Plant Struct
