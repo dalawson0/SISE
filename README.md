@@ -20,8 +20,7 @@ You can install the SISE Toolbox in MATLAB using one of the following methods:
 
 
 #### Option 1 - Direct Download
-Download the latest release of SISE here: [Download SISE](https://github.com/dalawson0/SISE/releases/latest/download/SISE_0.1.0.mltbx)  
-*(This option is available starting from the initial release v0.1.0.)*
+Download the latest release of SISE here: [Download SISE](https://github.com/dalawson0/SISE/releases/latest/download/SISE_0.1.0.mltbx).
 
 #### Option 2 - MATLAB Add-On Explorer
 1. Open MATLAB.
