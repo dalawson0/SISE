@@ -19,7 +19,7 @@
         </tocitem>
 
         <!-- Simulink block reference section -->
-        <tocitem target="sise_simulink_blocks.html" image="HelpIcon.BLOCK"> 
+        <tocitem target="sise_help_simulink_blocksbycat.html" image="HelpIcon.BLOCK"> 
             Simulink Block Reference
             <!-- Blocks listed alphabetically -->
             <tocitem target="LTI_Plant_Block_overview.html">LTI Plant</tocitem>
