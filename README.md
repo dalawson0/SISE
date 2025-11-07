@@ -1,12 +1,12 @@
-# SISE - Simultaneous Input and State Estmation for MATLAB
+# SISE - Simultaneous Input and State Estimation for MATLAB
 
-**Author:** Daniel Lawson,
+**Author:** Daniel Lawson, Savannah Macero, Elikplim Gah, Sze Zheng Yong
 **License:** MIT
 
 ---
 
 ## Overview
-**SISE** is a MATLAB toolbox providing algorithms for **Simultaneous Input and State Estimation (SISE)** in linear systems. The toolbox is designed to support research, simulation, and practical applications in state estimation and controls.
+**SISE** is a MATLAB toolbox providing algorithms for **Simultaneous Input and State Estimation (SISE)** of linear dynamical systems. The toolbox is designed to support research, simulation, and real-world applications in state estimation and control.
 
 
 ## Version Information
@@ -35,7 +35,7 @@ Download the latest release of SISE here: [Download SISE](https://github.com/dal
 	```
 2. Add the SISE folder (and all subfolders) to your MATLAB path:
 	```matlab
-	addpath(genpath("path/to/SISE_folder"))
+	addpath(genpath("path/to/SISE/"))
 	```
 3. To make the SISE Toolbox available every time you start MATLAB, save the current path by running:
 	```matlab
