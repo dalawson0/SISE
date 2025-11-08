@@ -1,59 +1,69 @@
-function [xhat_UL,Px_UL,dhat_UL,Pd_UL,Pxd_UL] = ULISE(A,B,C,D,G,H,Q,R,K,u,y,xhat0,P_x0)
-% ULISE Unified Linear Input & State Estimator (time-invariant)
-%
+function [xhat_UL,Px_UL,dhat_UL,Pd_UL,Pxd_UL] = ULISE(A,B,C,D,G,H,Q,R,K,u,y,xhat0,P_x0,use_tzero)
+% ULISE Unified Linear Input & State Estimator for Linear Time-Invariant
+%       Systems (Zero-Step State, One-Step Input Delay) 
+%s
 %   Syntax:
-%       [xhat_UL, Px_UL, dhat_UL, Pd_UL, Pxd_UL] = ULISE(A,B,C,D,G,H,Q,R,K,u,y,xhat0,P_x0)
+%       [xhat_UL, Px_UL, dhat_UL, Pd_UL, Pxd_UL] = ULISE(A,B,C,D,G,H,Q,R,K,u,y,xhat0,P_x0,use_tzero)
 %
 %   Description:
-%       ULISE computes minimum-variance, unbiased estimates of the state x_k
-%       and unknown input (disturbance) d_k for a discrete-time, linear,
-%       time-invariant system of the form:
+%       ULISE computes minimum-variance, unbiased estimates of the state
+%       x_k and unknown input (disturbance) d_{k-1} for a discrete-time,
+%       linear, time-invariant system: 
 %
 %           x_{k+1} = A x_k + B u_k + G d_k + w_k   {State equation}
 %           y_k     = C x_k + D u_k + H d_k + v_k   {Measurement equation}
 %
-%       where u_k is a known input, w_k is process noise, and v_k is measurement noise.
-%       Optimal estimates are obtained as follows:
+%       where u_k is the known input vector, w_k is the zero-mean process
+%       noise vector with covariance Q, and v_k is zero-mean measurement
+%       noise vector with covariance R.
 %
-%       ULISE takes the state-space matrices A, B, C, D, G, H and the
-%       covariance matrices:
-%
-%           Q = E{w_k w_k'} ,   R = E{v_k v_k'}.
-%
-%       The algorithm produces steady-state estimates of both the state and
-%       unknown input, as well as their corresponding error covariances.
+%       The state and unknown input estimates are computed using the
+%       equations presented in Section 4 of [1]. These include the unknown
+%       input estimation, time update (prediction), and measurement update
+%       steps. For complete derivations and definitions of intermediate
+%       matrices (e.g., M_{1,k}, M_{2,k}, and L_k — implemented in code as
+%       M1, M_UL, and L_UL), refer to [1].
 %
 %   Inputs:
-%       A,B,C,D,G,H : System matrices (time-invariant)
-%       Q,R         : Process and measurement noise covariance matrices
-%       K           : Kalman gain (if precomputed, optional)
-%       u           : Known input sequence
-%       y           : Measurement sequence
-%       xhat0       : Initial state estimate
-%       P_x0        : Initial error covariance
+%       A           : State transision matrix (n-by-n)
+%       B           : Control input matrix (n-by-m)
+%       C           : Measurement matrix (l-by-n)
+%       D           : Measurement feedthrough from u_k (l-by-m)
+%       G           : Disturbance input matrix (n-by-p)
+%       H           : Disturbance feedthrough to output (l-by-p)
+%       Q           : Process noise covariance (n-by-n)
+%       R           : Measurement noise covariance (l-by-l)
+%       K           : Number of time steps (scalar)
+%       u           : Known control inputs; each column is u_k at time k (m-by-K)
+%       y           : Measured outputs; each column is y_k at time k (l-by-K)
+%       xhat0       : Initial state estimate (n-by-1)
+%       P_x0        : Initial error covariance (n-by-n)
+%       use_tzero   : Logical flag indicatin whether to check system's transmission zeros using Control System Toolbox function TZERO
 %
 %   Outputs:
-%       xhat_UL : Estimated state sequence
-%       Px_UL   : State error covariance
-%       dhat_UL : Estimated unknown input sequence
-%       Pd_UL   : Unknown input error covariance
-%       Pxd_UL  : Cross-covariance between state and input estimates
+%       xhat_UL     : Estimated states; each column is xhat_{k|k} at each time step k (n-by-K)
+%       Px_UL       : State error covariance; block entries correspond to P^x_{k|k} at each time step k (n-by-n-by-K)
+%       dhat_UL     : Estimated one-step delay unknown input; each column is dhat_{k-1} at each time step k-1 (p-by-(K-1))
+%       Pd_UL       : Unknown input error covariance; block entries correspond to P^d_{k-1} at each time step k-1 (p-by-p-by-(K-1))
+%       Pxd_UL      : Cross-covariance between state and input estimates;block entries correspond to P^{xd}_{k-1} at each time step k-1 (n-by-p-by-K)
 %
 %   Notes:
-%       • Unobservable components of d_k (denoted d₂) are estimated one
+%       - Unobservable components of d_k (denoted d₂) are estimated one
 %         time step later if rank(H) ≠ full rank.
 %
-%   See also:
-%       <matlab:helpwin('ULISE_algorithm_overview') ULISE Algorithm Overview>
-%
 %   References:
-%       [1] Yong, S.Z., Zhu, M., Frazzoli, E. (2015). "A unified filter for
-%           simultaneous input and state estimation of linear discrete-time
-%           stochastic systems." Automatica, 62, 321–329.
-%       Extended version: http://arxiv.org/abs/1309.6627
+%       [1] Yong, S. Z., Zhu, M., & Frazzoli, E. (2016). A unified filter
+%       for simultaneous input and state estimation of linear discrete-time
+%       stochastic systems. Automatica, 63, 321–329.
+%       https://doi.org/10.1016/j.automatica.2015.10.040 
+%       (Also available as a preprint at https://arxiv.org/abs/1309.6627)
 %
+%   Authorship:
+%       D. Lawson, S. Macero, E. Gah, and S.Z. Yong (2025). SISE Toolbox
+%       for MATLAB (https://github.com/dalawson0/SISE.git), GitHub. 
+%   
 %   Version History:
-%       Introduced in SISE v1.0
+%       Introduced in SISE v1.0.0
 
 n=size(A,1);
 l=size(C,1);
@@ -70,7 +80,7 @@ U2=U(:,r+1:end);
 Sigma=S(1:r,1:r);
 V1=V(:,1:r);
 V2=V(:,r+1:end);
-T1=[eye(r) -U1'*R*U2*inv(U2'*R*U2)]*[U1';U2'];
+T1=[eye(r) -U1'*R*U2*pinv(U2'*R*U2)]*[U1';U2'];
 T2=U2';
 C1=T1*C;
 C2=T2*C;
@@ -85,19 +95,25 @@ Ahat=A-G1*M1*C1;
 Qhat=G1*M1*R1*M1'*G1'+Q;
 
 % Transmission zeros
-t_zeros = tzero(A,G,C,H)
-if rank([A G;C H]) ~= n+p
-    error('Error. System is not strongly detectable.')
-end
-for i = 1:length(t_zeros)
-    if abs(t_zeros(i))>1
-        error('Error. System is not strongly detectable.')
+if use_tzero
+    if license("test", "Control_Toolbox")
+        t_zeros = tzero(A,G,C,H)
+        if rank([A G;C H]) ~= n+p
+            error('Error. System is not strongly detectable.')
+        end
+        for i = 1:length(t_zeros)
+            if abs(t_zeros(i))>1
+                error('Error. System is not strongly detectable.')
+            end
+        end
+    else
+        warning("Control System Toolbox not available. Transmission zeros not computed.")
     end
 end
+
 if rank(C2*G2)<p-r
     error('Error. Delay greater or equal to 1. See: Yong, S.Z., Zhu, M., and Frazzoli, E. (2015). Simultaneous input and state estimation with a delay. IEEE Conference on Decision and Control, Osaka, Japan, pp. 468-475')
 end
-
 
 % Output decoupling
 z1=zeros(r,K);
