@@ -2,16 +2,16 @@
 
 <toc version="2.0">
 <!-- Top level in Help browser Content -->
-    <tocitem target="sise_product_page.html">SISE Toolbox 
+    <tocitem target="product_page.html">SISE Toolbox 
         <!-- Nest tocitems to create hierarchical entries in  Contents-->
  
         <!-- Getting Started section -->
-        <tocitem target="sise_getting_started.html" image="HelpIcon.GETTING_STARTED">
+        <tocitem target="getting_started.html" image="HelpIcon.GETTING_STARTED">
             Getting Started
         </tocitem>
 
         <!-- Function reference section -->
-        <tocitem target="sise_helpfuncbycat.html" image="HelpIcon.FUNCTION">
+        <tocitem target="help_fcns_by_category.html" image="HelpIcon.FUNCTION">
             Function Reference
             <!-- functions alphabetically -->
             <tocitem target="ULISE_algorithm_overview.html">ULISE</tocitem>
@@ -19,7 +19,7 @@
         </tocitem>
 
         <!-- Simulink block reference section -->
-        <tocitem target="sise_help_simulink_blocksbycat.html" image="HelpIcon.BLOCK"> 
+        <tocitem target="help_blocks_by_category.html" image="HelpIcon.BLOCK"> 
             Simulink Block Reference
             <!-- Blocks listed alphabetically -->
             <tocitem target="LTI_Plant_Block_overview.html">LTI Plant</tocitem>
@@ -27,7 +27,7 @@
         </tocitem>
 
         <!-- Examples, with hyperlinks to examples in other files -->
-        <tocitem target="sise_examples.html" 
+        <tocitem target="examples_overview.html" 
                  image="HelpIcon.HelpIcon.EXAMPLES">Examples 
         </tocitem>
 
