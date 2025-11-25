@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2025b"><title>InitFcn ULISE Fault Identification </title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20.4px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif; font-style: normal; font-size: 17px; font-weight: 700; text-align: left;  }
+.S2 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 15px 10px 0; display: inline-block; min-width: 100%; }
+.S3 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 0px none rgb(33, 33, 33); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S5 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace, Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>InitFcn ULISE Fault Identification </span></h1><h3  class = 'S1'><span>Description:</span></h3><div  class = 'S2'><span>Initialization script for the ULISE Fault Identification Simulink model. Defines simulation parameters and loads system matrices into the model workspace. It also generates custom known and unknown inputs and stores for the simulation. Runs automatically via the model’s InitFcn callback.</span></div><h3  class = 'S1'><span>Simulation Setup Parameters</span></h3><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S3'><span style="white-space: pre"><span >SimSetup = struct();</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >SimSetup.Ts = 1e0; </span><span style="color: rgb(0, 128, 19);">% Sampling time</span></span></div></div><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >SimSetup.K  = 1e3; </span><span style="color: rgb(0, 128, 19);">% Total number of time steps for simulation</span></span></div></div></div><h3  class = 'S1'><span>Define Plant Parameters</span></h3><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S3'><span style="white-space: pre"><span >System = struct();</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% State Transition Matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.A = [0.5  2    0    0    0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0    0.2  1    0    1; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0    0    0.3  0    1; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0    0    0    0.7  1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0    0    0    0    0.1]; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Control Input Matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.B = zeros(5, 0);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Measurement Matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.C = blkdiag(1,1,1,1,1);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Measurement feedthrough from u</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.D = zeros(5,0);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Disturbance input matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.G = [1   0   -0.3;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            1   0   0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0   0   0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0   0   0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0   0   0];</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Disturbance feedthrough to output</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.H = [0  0  1;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0  0  0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0  1  0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0  0  0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >            0  0  0]; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Process noise covariance</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.Q = 1e-4 * [1    0    0    0   0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0    1    0.5  0   0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0    0.5  1    0   0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0    0    0    1   0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0    0    0    0   1]; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Measurement noise covariance</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.R = 1e-2 * [1    0    0   0.5  0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0    1    0   0    0.3; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0    0    1   0    0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0.5  0    0   1    0; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >                   0    0.3  0   0    1];</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Initial state vector</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.x0 = zeros(5,1);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Initial estimate of the state vector</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.xhat0 = zeros(5,1);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Initial state covariance matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >System.P_x0 = eye(size(System.A,1))*1e6;</span></span></div></div></div><h3  class = 'S1'><span>Simulate 'true' known input, u, and unknown input, d (change if desired)</span></h3><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S3'><span style="white-space: pre"><span >u = zeros(0, SimSetup.K);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >d = zeros(3, SimSetup.K);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >d(1,500:700) = 1*ones(size(d(1,500:700)));</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">for </span><span >j = 100:800</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >    d(2,j) = 1/700*(j-100);</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Modify the third disturbance component</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >d(3,[500:549 600:649 700:749]) = 3*ones(size(d(3,[500:549 600:649 700:749])));</span></span></div></div><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >d(3,[550:599 650:699 750:799]) = -3*ones(size(d(3,[550:599 650:699 750:799])));</span></span></div></div></div><h3  class = 'S1'><span>Modify the known input and create timeseries objects for both inputs</span></h3><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S3'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Default filename (change if desired, but remember to also change the name in the Signal Editor block)</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >System.filename = </span><span style="color: rgb(167, 9, 245);">'ULISE_default_signals.mat'</span><span >; </span></span></div></div><div class="inlineWrapper"><div  class = 'S4'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span style="color: rgb(0, 128, 19);">% Internal processing (do not change)</span></span></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre"><span >[System.B, System.D, input_data] = preprocessing_ULISE(System.A, System.B, </span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >    System.C, System.D, System.G, SimSetup.K, SimSetup.Ts, u, d, System.filename);</span></span></div></div></div><div  class = 'S2'><span>D. Lawson, S. Macero, E. Gah, and S.Z. Yong (2025). SISE Toolbox for MATLAB (https://github.com/dalawson0/SISE.git), GitHub.</span></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% InitFcn ULISE Fault Identification 
+% Description:
+% Initialization script for the ULISE Fault Identification Simulink model. Defines 
+% simulation parameters and loads system matrices into the model workspace. It 
+% also generates custom known and unknown inputs and stores for the simulation. 
+% Runs automatically via the model’s InitFcn callback.
+% Simulation Setup Parameters
+
+SimSetup = struct();
+
+SimSetup.Ts = 1e0; % Sampling time
+SimSetup.K  = 1e3; % Total number of time steps for simulation
+% Define Plant Parameters
+
+System = struct();
+
+% State Transition Matrix
+System.A = [0.5  2    0    0    0;
+            0    0.2  1    0    1; 
+            0    0    0.3  0    1; 
+            0    0    0    0.7  1;
+            0    0    0    0    0.1]; 
+
+% Control Input Matrix
+System.B = zeros(5, 0);
+
+% Measurement Matrix
+System.C = blkdiag(1,1,1,1,1);
+
+% Measurement feedthrough from u
+System.D = zeros(5,0);
+
+% Disturbance input matrix
+System.G = [1   0   -0.3;
+            1   0   0;
+            0   0   0;
+            0   0   0;
+            0   0   0];
+
+% Disturbance feedthrough to output
+System.H = [0  0  1;
+            0  0  0; 
+            0  1  0; 
+            0  0  0; 
+            0  0  0]; 
+
+% Process noise covariance
+System.Q = 1e-4 * [1    0    0    0   0; 
+                   0    1    0.5  0   0; 
+                   0    0.5  1    0   0; 
+                   0    0    0    1   0; 
+                   0    0    0    0   1]; 
+
+
+% Measurement noise covariance
+System.R = 1e-2 * [1    0    0   0.5  0;
+                   0    1    0   0    0.3; 
+                   0    0    1   0    0; 
+                   0.5  0    0   1    0; 
+                   0    0.3  0   0    1];
+
+% Initial state vector
+System.x0 = zeros(5,1);
+
+% Initial estimate of the state vector
+System.xhat0 = zeros(5,1);
+
+% Initial state covariance matrix
+System.P_x0 = eye(size(System.A,1))*1e6;
+% Simulate 'true' known input, u, and unknown input, d (change if desired)
+
+u = zeros(0, SimSetup.K);
+
+d = zeros(3, SimSetup.K);
+d(1,500:700) = 1*ones(size(d(1,500:700)));
+
+for j = 100:800
+    d(2,j) = 1/700*(j-100);
+end
+
+% Modify the third disturbance component
+d(3,[500:549 600:649 700:749]) = 3*ones(size(d(3,[500:549 600:649 700:749])));
+d(3,[550:599 650:699 750:799]) = -3*ones(size(d(3,[550:599 650:699 750:799])));
+% Modify the known input and create timeseries objects for both inputs
+
+% Default filename (change if desired, but remember to also change the name in the Signal Editor block)
+System.filename = 'ULISE_default_signals.mat'; 
+
+% Internal processing (do not change)
+[System.B, System.D, input_data] = preprocessing_ULISE(System.A, System.B, ...
+    System.C, System.D, System.G, SimSetup.K, SimSetup.Ts, u, d, System.filename);
+%% 
+% D. Lawson, S. Macero, E. Gah, and S.Z. Yong (2025). SISE Toolbox for MATLAB 
+% (https://github.com/dalawson0/SISE.git), GitHub.
+##### SOURCE END #####
+-->
+</div></body></html>

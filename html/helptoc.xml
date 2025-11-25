@@ -23,7 +23,9 @@
             Simulink Block Reference
             <!-- Blocks listed alphabetically -->
             <tocitem target="LTI_Plant_Block_overview.html">LTI Plant</tocitem>
+            <tocitem target="System_setup_Block_overview.html">System Setup</tocitem>
             <tocitem target="ULISE_Filter_Block_overview.html">ULISE Filter</tocitem>
+
         </tocitem>
 
         <!-- Examples, with hyperlinks to examples in other files -->
