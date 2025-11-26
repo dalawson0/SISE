@@ -69,8 +69,9 @@ input_data = input_data.addElement(setinterpmethod(u_ts,'zoh'), 'u');
 
 
 % Save dataset to file
-full_path = fullfile('./Examples/Simulink/', filename);
-addpath('./Examples/Simulink/');
+folder_path = './examples/simulink/fault_identification/';
+full_path = fullfile(folder_path, filename);
+addpath(folder_path);
 fprintf('Saving to: %s \n', full_path);
 save(full_path, 'input_data');
 end

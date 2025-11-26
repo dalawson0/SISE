@@ -95,7 +95,7 @@ Qhat=G1*M1*R1*M1'*G1'+Q;
 
 % Check Assumptions (i) and (ii)
 if license("test", "Control_Toolbox")
-    t_zeros = tzero(A,G,C,H)
+    t_zeros = tzero(A,G,C,H);
     if rank([A G;C H]) ~= n+p
         error('Error. System is not strongly detectable.')
     end
@@ -175,7 +175,7 @@ for i=k(1:end-1)
     % Measurement update
     R_pinv=pinv(R2_tilde_star_UL(:,:,i+1));
     L_UL(:,:,i+1)=(Px_star_UL(:,:,i+1)*C2'-G2*M_UL(:,:,i+1)*R2)*R_pinv;
-    xhat_UL(:,i+1)=xhat_star_UL(:,i+1)+L_UL(:,:,i+1)*(z2(:,i+1)-D2*u(i+1)-C2*xhat_star_UL(:,i+1));
+    xhat_UL(:,i+1)=xhat_star_UL(:,i+1)+L_UL(:,:,i+1)*(z2(:,i+1)-D2*u(:,i+1)-C2*xhat_star_UL(:,i+1));
     Px_UL(:,:,i+1)=(eye(n)-L_UL(:,:,i+1)*C2)*Px_star_UL(:,:,i+1)*(eye(n)-L_UL(:,:,i+1)*C2)'+L_UL(:,:,i+1)*R2*L_UL(:,:,i+1)'+L_UL(:,:,i+1)*R2*M_UL(:,:,i+1)'*G2'*(eye(n)-L_UL(:,:,i+1)*C2)'+(eye(n)-L_UL(:,:,i+1)*C2)*G2*M_UL(:,:,i+1)*R2*L_UL(:,:,i+1)';
     
     % Estimation of d1
