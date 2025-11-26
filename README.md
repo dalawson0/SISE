@@ -10,7 +10,7 @@
 
 
 ## Version Information
-- **Current Version:** v0.1.0  
+- **Current Version:** v1.0.0  
 - **Tested MATLAB Release:** R2025b  
 
 
