@@ -4,7 +4,6 @@
 **/.DS_Store
 resources/
 **/.buildtool/**/*
-*.prj
 *.prj.bak
 toolbox.ignore
 release/
